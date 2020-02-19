@@ -258,7 +258,7 @@ class A_Flip(Node, metaclass=abc.ABCMeta):
     def __init__(self, head):
         super().__init__()
         self.head = head
-        self.margin = 0.5  # 子の専有領域と親の領域の余白
+        self.margin = 0.5  # 子の占有領域と親の領域の余白
         self.r = head.r + self.margin
 
     def draw(self, info_dic):  # 描画する際に親から与える中心点
@@ -320,7 +320,7 @@ class A2(Node):
         else:
             self.len_of_circ = len_of_minus_circ * 2
         self.center_r = self.len_of_circ / (2 * pi)  # a_2の円の半径
-        self.r = self.center_r + self.high  # 専有領域の半径
+        self.r = self.center_r + self.high  # 占有領域の半径
         self.occupation = [(self.r, self.type)]
 
     def draw(self, info_dic):
@@ -384,7 +384,7 @@ class B_Evc(Node, metaclass=abc.ABCMeta):
         # headは上の円の半径、tailは下の円の半径
         self.head = head
         self.tail = tail
-        self.margin = 0.5  # 子の専有領域と親の領域の余白
+        self.margin = 0.5  # 子の占有領域と親の領域の余白
         self.l_up_r = head.r  # 上の図の占有領域(半径)
         self.l_down_r = tail.r  # 下の図の占有領域(半径)
         self.r = (2 * self.l_up_r + 2 * self.l_down_r + 4 * self.margin) / 2  # 全体の占有領域(半径)
@@ -399,13 +399,13 @@ class B_Evc(Node, metaclass=abc.ABCMeta):
 
 class B_Flip(Node, metaclass=abc.ABCMeta):
     """
-    b+-,b--の抽象クラス
+    b+-,b-+の抽象クラス
     """
     def __init__(self, head, tail):
         super().__init__()
         self.head = head
         self.tail = tail
-        self.margin = 0.5  # 子の専有領域と親の領域の余白
+        self.margin = 0.5  # 子の占有領域と親の領域の余白
         self.l_up_r = head.r  # 上の図の占有領域(半径)
         self.l_down_r = tail.r  # 下の図の占有領域(半径)
         self.r = (2 * self.l_up_r + 2 * self.l_down_r + 4 * self.margin) / 2
@@ -525,7 +525,7 @@ class C(Node, metaclass=abc.ABCMeta):
             b_center = self.theta_point(high_theta, center_r+self.high_children+self.circ_margin+self.head.r, center)
         self.plot_arrow(bool_b0, high_point, high_theta)
         if self.head.r != 0:
-            # 180-(90+high_theta)bの専有領域の中心を基準に三角関数を適用するための準備
+            # 180-(90+high_theta)bの占有領域の中心を基準に三角関数を適用するための準備
             b_r_theta = pi - (pi/2+high_theta)  
             # 0度の点
             b_r_center = self.theta_point(-b_r_theta, self.head.r+self.circ_margin, b_center)
